@@ -8,10 +8,24 @@
 #global constants
 
 #PROBLEMS: 
-#improvement: increase scope of dict (option 2 looks best now-1 dict 9 k/v pairs
+#improvement: implimented multiple dictionaries 
 
+
+import random 
 #dictionary
-workout_dictionary = {'spine': 'w1', 'shoulders': 'w2', 'legs' : 'w3'}
+
+
+spine_dict= {'cobra progression':'5 minuntes', 'doughnut progression' : '5 minutes',
+             'kneeling backbend': '1 minute, 4 reps', 'chair layover' : '1 minute 4 reps',
+             'elbow stand' : '1 minute, 4 reps', 'backbend with twist' : '1 minute, 2 reps',
+             'standing frontbend' : '2 minutes', 'laying frontbend' : '2 minutes',
+             'frontbend with chair' : '1 minute, 4 reps'}
+
+shoulder_dict = {'overhead stretch' : '1 min', 'floor shoulder stretch' : '5 min'}
+
+legs_dict = {'splits (L, R, Center)': '2 min per side', 'splits switch (L-R)' : '10 reps',
+             'oversplits (L,R,Center)' : '2 min per side', 'roll through center splits' : '10 reps',
+             'legs behind back': '1 min, 3 reps'}
 
 injury = 0
 self=[]
@@ -22,19 +36,22 @@ def todays_workout(self):
    
     #injured spine 
     if injury == "1":
-        self= workout_dictionary['shoulders'] + workout_dictionary['legs']
+
+        #return random sample of exerciese from shoulder and leg dictionaries 
+        self= random.sample(shoulder_dict.items(), 2) + random.sample(legs_dict.items(), 4)
+        
 
     #injured shoulders 
     elif injury == "2":
-        self= workout_dictionary['spine'] + workout_dictionary['legs']
+        self= random.sample(spine_dict.items(), 3) + random.sample(legs_dict.items(), 3)
 
     #injured legs
     elif injury == "3":
-        self= workout_dictionary['spine']+ workout_dictionary['shoulders']
+        self= random.sample(shoulder_dict.items(), 2) + random.sample(spine_dict.items(), 4)
 
     #no injuries, return all workouts
     else:
-        self= workout_dictionary
+        self= random.sample(shoulder_dict.items(), 2) + random.sample(legs_dict.items(), 3) +random.sample(spine_dict.items(), 3)
         
     return self
 
