@@ -1,11 +1,9 @@
 #Copyright(c) 2014 Gina Fitzgerald 
 #Contortion workout: provide contortion workouts avoiding injuries 
-#base cases from which to expand on monday
 #program introduces itself
 #user inputs injury
 #program returns workout
 
-#global constants
 
 #PROBLEMS: 
 #improvement: implimented multiple dictionaries 
@@ -61,7 +59,10 @@ class Workout(object):
     def spine(self):
         #in case of spinal injury 
         if '1' in injury:
-            self= Backbend['cobra'] + Backbend['doughnut'] + Frontbend['standing frontbend-head to floor'] +Frontbend['laying frontbend']     #only perform 1st 3 items of lists 
+            self= {'cobra':'5 minuntes',
+           'doughnut' : '5 minutes',
+           'standing frontbend-head to floor' : '3 min',
+            'laying frontbend' : '2 minutes'}
 
         #otherwise perform randomly selected pairs of Front/Back exercises 
         else:
@@ -72,14 +73,14 @@ class Workout(object):
     def splits(self):
         #in case of leg injury 
         if '2' in injury:
-            self= 2*(Splits_side['splits'] + Splits_center['splits']) #only perform basic leg workouts 
+            self= {'splits (L-R-Center)': '5 min per side'} #only perform basic leg workouts 
 
         #no leg injury 
         else:
             self = random.sample(Splits_side.items(), 4) + random.sample(Splits_center.items(), 4)
         return self
 
-
+1
 
     
 
@@ -97,7 +98,8 @@ our program focuses heavily on the following areas:
 injury = input(
                 """\n\nIf you are injured in any of the preceeding areas,
                    type the corresponding number(s)and hit enter,
-                   otherwise hit enter to continue""")
+                   otherwise hit enter to continue
+                   if your input is not in field, program will provide full workout""")
 
 #present workout
 print("\n\nWarm Up")
