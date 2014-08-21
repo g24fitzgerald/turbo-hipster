@@ -15,61 +15,98 @@ import random
 #dictionary
 
 
-spine_dict= {'cobra progression':'5 minuntes', 'doughnut progression' : '5 minutes',
-             'kneeling backbend': '1 minute, 4 reps', 'chair layover' : '1 minute 4 reps',
-             'elbow stand' : '1 minute, 4 reps', 'backbend with twist' : '1 minute, 2 reps',
-             'standing frontbend' : '2 minutes', 'laying frontbend' : '2 minutes',
-             'frontbend with chair' : '1 minute, 4 reps'}
+Backbend= {'cobra':'5 minuntes',
+           'doughnut' : '5 minutes',
+           'kneeling backbend': '1 minute, 4 reps',
+           'chair layover' : '1 minute 4 reps',
+           'elbow stand' : '1 minute, 4 reps'}
+           
+Frontbend= {'standing frontbend-head to floor' : '3 min',
+            'standing frontbend-head through legs':'3 min',
+            'laying frontbend' : '2 minutes',
+            'frontbend with chair' : '1 minute, 4 reps'}
+    
+Other = {'overhead stretch' : '1 min', 'floor shoulder stretch' : '5 min','backbend with twist' : '1 minute, 2 reps',}
 
-shoulder_dict = {'overhead stretch' : '1 min', 'floor shoulder stretch' : '5 min'}
+Splits_side = {'splits (L, R)': '5 min per side',
+                'splits switch (L-R)' : '10 reps',
+                'oversplits (L,R)' : '5 min per side',
+                'legs behind back': '1 min, 3 reps',
+                'dislocated splits': '15 reps',
+                'split with backbend': '15 reps'}
 
-legs_dict = {'splits (L, R, Center)': '2 min per side', 'splits switch (L-R)' : '10 reps',
-             'oversplits (L,R,Center)' : '2 min per side', 'roll through center splits' : '10 reps',
-             'legs behind back': '1 min, 3 reps'}
-
+Splits_center = {'straddle':'5 min',
+                 'straddle on back': '5 min',
+                 'leg elevated straddle': '15 reps',
+                 'oversplit': '5 min',
+                 'roll through center splits' : '10 reps',
+                 'forward straddle': '15 reps'}
+    
 injury = 0
 self=[]
 
-#define workout 
+#create workout class
+class Workout(object):
+    def __init__():
+        self.warm_up = warm_up
+        self.splits = splits
+        self.spine = spine
 
-def todays_workout(self):
-   
-    #injured spine 
-    if injury == "1":
+    #Maybe include in initialization? 
+    def warm_up(self):
+        self= Other
+        return self
 
-        #return random sample of exerciese from shoulder and leg dictionaries 
-        self= random.sample(shoulder_dict.items(), 2) + random.sample(legs_dict.items(), 4)
-        
+    
+    def spine(self):
+        #in case of spinal injury 
+        if '1' in injury:
+            self= Backbend['cobra'] + Backbend['doughnut'] + Frontbend['standing frontbend-head to floor'] +Frontbend['laying frontbend']     #only perform 1st 3 items of lists 
 
-    #injured shoulders 
-    elif injury == "2":
-        self= random.sample(spine_dict.items(), 3) + random.sample(legs_dict.items(), 3)
+        #otherwise perform randomly selected pairs of Front/Back exercises 
+        else:
+            self = random.sample(Backbend.items(), 3) + random.sample(Frontbend.items(), 3)
 
-    #injured legs
-    elif injury == "3":
-        self= random.sample(shoulder_dict.items(), 2) + random.sample(spine_dict.items(), 4)
+        return self
 
-    #no injuries, return all workouts
-    else:
-        self= random.sample(shoulder_dict.items(), 2) + random.sample(legs_dict.items(), 3) +random.sample(spine_dict.items(), 3)
-        
-    return self
+    def splits(self):
+        #in case of leg injury 
+        if '2' in injury:
+            self= 2*(Splits_side['splits'] + Splits_center['splits']) #only perform basic leg workouts 
+
+        #no leg injury 
+        else:
+            self = random.sample(Splits_side.items(), 4) + random.sample(Splits_center.items(), 4)
+        return self
+
+
+
+    
 
 #MAIN
 
 #introduction
 print("""welcome to your personal guide to the world of contortion"
-our program focuses on the following areas:
+our program focuses heavily on the following areas:
 
       "1 - spine
       
-      "2 - shoulders
-      
-      "3 - legs""")
+      "2 - splits""")
 
-injury = input("""If you are injured in any of the preceeding areas,
-               type the corresponding number, otherwise hit enter to continue""")
+#user inputs injury 
+injury = input(
+                """\n\nIf you are injured in any of the preceeding areas,
+                   type the corresponding number(s)and hit enter,
+                   otherwise hit enter to continue""")
 
-print(todays_workout(self))
+#present workout
+print("\n\nWarm Up")
+print(Workout.warm_up(self))
 
-input("press enter to exit")
+print("\n\nSpinal work")
+print(Workout.spine(self))
+
+print("\n\nLeg work")
+print(Workout.splits(self))
+
+input("\n\npress enter to exit")
