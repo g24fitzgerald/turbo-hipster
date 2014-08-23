@@ -4,6 +4,13 @@
 #user inputs injury
 #program returns workout
 
+#include major medical disclaimers
+#rather than hardcode dictionaries, make them importable
+#create timer for each workout
+#include pictures for each workout
+#create diagram of program architecture
+#include tests
+
 
 #PROBLEMS: 
 #improvement: implimented multiple dictionaries 
