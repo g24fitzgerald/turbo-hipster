@@ -1,5 +1,6 @@
 from tkinter import*
 from tkinter import ttk
+import tkinter.messagebox 
 
 w1= 'hey'
 w2= 'hoe'
@@ -7,10 +8,15 @@ w3= 'now'
 w4= 'go'
 workout= None
 
+messagebox.showwarning("show warning", "this workout is not intended for those without previous training. Under no circumstances should these exercises be performed without first having recieved proper training from an instructor. This is not a tutorial on becoming a contortionist, rather this is a workout generator for contortionists seeking to vary their personal training. By clicking 'ok' you assume responsibility for any and all injuries aquired while following this program.")
+
+checkvar1= IntVar()
+checkvar2= IntVar()
+
 def calculate_workout(*args):
     
     #4 cases 
-    if checkvar1 == '1' and checkvar2 == '1':
+    if checkvar1 == 1 and checkvar2 == 1:
         workout= w4
         return workout
 
@@ -25,7 +31,7 @@ def calculate_workout(*args):
     else:
         workout= w1
         return workout
-    return
+    
 
 def report_workout(*args):
     print(workout)
@@ -47,8 +53,7 @@ mainframe.rowconfigure(0, weight = 1)
 ttk.Label(mainframe, text='Mark if you are injured in either of the following areas, otherwise hit next to return your workout:').grid(column=1, row=1, sticky=W)
 
 
-checkvar1= IntVar()
-checkvar2= IntVar()
+
 #legs button
 b_legs=ttk.Radiobutton(mainframe, text='legs', variable= checkvar1, value= 1, command= calculate_workout)
 b_legs.grid(column=1, row= 2, sticky= W)
