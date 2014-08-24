@@ -1,8 +1,38 @@
 from tkinter import*
 from tkinter import ttk
 
+w1= 'hey'
+w2= 'hoe'
+w3= 'now'
+w4= 'go'
+workout= None
+
 def calculate_workout(*args):
-    print('yes sir')
+    
+    #4 cases 
+    if checkvar1 == '1' and checkvar2 == '1':
+        workout= w4
+        return workout
+
+    elif checkvar1 == '1' and checkvar2 != '1':
+        workout= w2
+        return workout
+
+    elif checkvar1 !='1' and checkvar2 == '1':
+        workout= w3
+        return workout
+
+    else:
+        workout= w1
+        return workout
+    return
+
+def report_workout(*args):
+    print(workout)
+
+
+    
+
 
 root = Tk()
 root.title("Contortion Training Program")
@@ -16,12 +46,17 @@ mainframe.rowconfigure(0, weight = 1)
 #Injuries label
 ttk.Label(mainframe, text='Mark if you are injured in either of the following areas, otherwise hit next to return your workout:').grid(column=1, row=1, sticky=W)
 
+
+checkvar1= IntVar()
+checkvar2= IntVar()
 #legs button
-ttk.Checkbutton(mainframe, text='legs').grid(column=1, row= 2, sticky= W)
+b_legs=ttk.Radiobutton(mainframe, text='legs', variable= checkvar1, value= 1, command= calculate_workout)
+b_legs.grid(column=1, row= 2, sticky= W)
 
 
 #spine button
-ttk.Checkbutton(mainframe, text='spine').grid(column=1, row= 3, sticky=W)
+b_spine=ttk.Radiobutton(mainframe, text='spine', variable= checkvar2, value= 1, command= calculate_workout)
+b_spine.grid(column=1, row= 3, sticky=W)
 
 
 #Next button
