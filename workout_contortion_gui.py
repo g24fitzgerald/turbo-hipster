@@ -40,38 +40,60 @@ def report_workout(*args):
     
 
 
-root = Tk()
-root.title("Contortion Training Program")
+
 
 #create mainframe, configure methods allow for adjustment when resizing
-mainframe = ttk.Frame(root, padding="3 3 12 12")
-mainframe.grid(column = 0, row = 0, sticky = (N,W,E,S))
-mainframe.columnconfigure(0, weight = 1)
-mainframe.rowconfigure(0, weight = 1)
+class Application(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        self.grid(sticky = NSEW)
+        page = Frame(self)
 
-#Injuries label
-ttk.Label(mainframe, text='Mark if you are injured in either of the following areas, otherwise hit next to return your workout:').grid(column=1, row=1, sticky=W)
+        page.grid(column = 0, row = 0, sticky = (N,W,E,S))
+        page.columnconfigure(0, weight = 1)
+        page.rowconfigure(0, weight = 1)
+
+        #page one
+        page_one = Frame(page)
+        page_one = ttk.Frame(row= 0, column = 0, sticky = NSEW)
+        
+
+        #page two
+        page_two = Frame(page)
+        page_two.grid(row = 0, column = 0, sticky = NSEW)
+
+        #Injuries label
+        ttk.Label(page_one, text='Mark if you are injured in either of the following areas, otherwise hit next to return your workout:').grid(column=1, row=1, sticky=W)
 
 
 
-#legs button
-b_legs=ttk.Radiobutton(mainframe, text='legs', variable= checkvar1, value= 1, command= calculate_workout)
-b_legs.grid(column=1, row= 2, sticky= W)
+        #legs button
+        b_legs=ttk.Radiobutton(page_one, text='legs', variable= checkvar1, value= 1, command= calculate_workout)
+        b_legs.grid(column=1, row= 2, sticky= W)
 
 
-#spine button
-b_spine=ttk.Radiobutton(mainframe, text='spine', variable= checkvar2, value= 1, command= calculate_workout)
-b_spine.grid(column=1, row= 3, sticky=W)
+        #spine button
+        b_spine=ttk.Radiobutton(page_one, text='spine', variable= checkvar2, value= 1, command= calculate_workout)
+        b_spine.grid(column=1, row = 3, sticky=W)
 
 
-#Next button
-ttk.Button(mainframe, text="Next", command=calculate_workout).grid(column=3, row=3, sticky=SE)
+        #Next button
+        ttk.Button(page_one, text="Next", command= lambda arg0 = page_two: self.show_page(page_two)).grid(column=3, row=3, sticky=SE)
+
+        self.show_page(main_page)
+        
+    def show_page(self, page):
+        page.tkraise
+
+
 
 
 #children of mainframe adjust to resizing
-for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
-#hitting return key instead of 'next' button returns same result 
+#hitting return key instead of 'next' button returns same result
+root = Tk()
+root.title("Contortion Training Program")
 root.bind('<Return>', calculate_workout)
+app = Application(root)
 
 root.mainloop()

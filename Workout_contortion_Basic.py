@@ -87,7 +87,7 @@ class Workout(object):
             self = random.sample(Splits_side.items(), 4) + random.sample(Splits_center.items(), 4)
         return self
 
-1
+
 
     
 
