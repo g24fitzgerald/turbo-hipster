@@ -1,3 +1,6 @@
+#Copyright (c) 2014 Gina Fitzgerald
+
+
 import random
 
 from os import listdir
@@ -5,6 +8,7 @@ from threading import Timer
 
 from tkinter import *
 from tkinter.ttk import *
+
 
 class Exercises():
     def __init__(self):
@@ -53,7 +57,7 @@ class Disclaimer(Frame):
         self.title = Label(self, text = "WARNING!", )
         self.title.grid(row = 0, column = 0)
         
-        self.text = Label(self, text = "this workout is not intended for those without previous training. Under no circumstances should these exercises be performed without first having recieved proper training from an instructor. This is not a tutorial on becoming a contortionist, rather this is a workout generator for contortionists seeking to vary their personal training. By clicking 'ok' you assume responsibility for any and all injuries aquired while following this program.")
+        self.text = Label(self, text = "this workout is not intended for those without previous training. Under no circumstances should these exercises be performed without first having recieved proper training from an instructor. This is not a tutorial on becoming a contortionist. This is a workout generator for contortionists seeking to vary their personal training. Contortionists should warmup BEFORE STARTING this workout; Neglecting to do so will result in injury. By clicking 'ok' you assume responsibility for any and all injuries aquired while following this program. Take a moment to maximize this window.")
         self.text.grid(row= 2, column = 0)
         self.text.config(wraplength = 500)
             
@@ -108,87 +112,48 @@ class Workout(Frame):
         self.title.grid(row = 0, column = 0)
 
         self.image = Label(self)
-        self.image.grid(row = 1, column = 0)
+        self.image.grid(row = 0, column = 0)
 
-        self.countdown = Label(self, text = "time left: 0")
+        self.tip1 = Label(self, text = "Do not dislocate until you are a complete contotionist")
+        self.tip1.grid(row= 1, column = 1)
+        self.tip1.config(wraplength = 250)
+
+        self.tip2 = Label(self, text = "Do the exercises for 3 hours a day. Repeat them 10-25 times once you have them down. Do this every day. It takes years to become a true contortionist. Never miss a day.")
+        self.tip2.grid(row= 2, column = 1)
+        self.tip2.config(wraplength = 250)
+
+        self.tip3 = Label(self, text = "Remember to breathe. Be gentle coming in and out of positions")
+        self.tip3.grid(row= 0, column = 1)
+        self.tip3.config(wraplength = 250)
+        
+
+        self.tip4 = Label(self, text = "This generator will loop foever. Exit the program manually when you've repeated the exerciese to your satisfaction. If you feel unusual pain, discontinue workout immidiately.")
+        self.tip4.grid(row= 3, column = 1)
+        self.tip4.config(wraplength = 250)
+        
+        self.countdown = Label(self, text = "Time remaining: 0", font =('Helvetica', 20))
         self.countdown.grid(row = 2, column = 0)
 
         self.exercise = 0
         self.elapsed = 0
+        
+    
 
     def tick(self):
         self.elapsed = self.elapsed + 1
-
-        if self.elapsed == 10:
+        if self.elapsed == 300:
             self.elapsed = 0
             self.exercise = (self.exercise + 1) % len(exercises.generated)
-        
+                            
         self.image.config(image = exercises.generated[self.exercise])
-
+        
         countdown = "time left: " + str(300 - self.elapsed)
         self.countdown.config(text = countdown)
 
         timer = Timer(1.0, self.tick)
         timer.start()
         
-    def disp_routine(self):
-            print("where's the workout?")
-            self.interpret_image()
-            self.timer= Timer(self, 300)
-            self.timer.grid(row= 3, column= 1, columnspan = 2, pady= 20)
-
-
-
-    def interpret_image(self):
-        while self.timer != 0:
-            for i in Exercises.generated:
-                img = PhotoImage(file ='split-c-02.gif') ###
-                panel = Label(root, image = img)
-                panel.pack()
-
-        else:
-            self.callback
-            
-    def callback(self):
-        img2 = PhotoImage(Image.open()) ###
-        panel.configure(image = img2)
-        panel.image = img
-        
-class Timer2(Frame):
-    # Generate and display countdown
-
-    def __init__(self, master, remaining):
-        super(Timer, self).__init__(master)
-        self.remaining = remaining
-        self["padx"] = 10
-        
-        # Make clock and message labels
-        self.clock = Label(self)
-        self.message = Label(self)
-        self.clock.grid(row = 0, sticky = W)
-        self.message.grid(row = 1, sticky = W)
-
-
-    def countdown(self):
-        # Display countdown 0:00
-        self.t_min = self.remaining // 60
-        self.t_sec = self.remaining % 60
-        if self.remaining > 0:
-            if self.t_sec < 10:
-                self.clock["text"] = str(self.t_min) + ":0" + str(self.t_sec) 
-            else:
-                self.clock["text"] = str(self.t_min) + ":" + str(self.t_sec) 
-
-            self.remaining -= 1
-
-            # Recursively run every second
-            self.after(1000, self.countdown)
-
-        # Change label texts and button states when time runs out
-        else:
-            self.clock["text"] = "0:00" 
-            self.message["text"] = "Slowly come out of last position and enter next"
-            
+                    
 
 # initalize gui
 root = Tk()
@@ -202,7 +167,7 @@ s_height = (root.winfo_screenheight() // 2) - (400 // 2)
 
 root.geometry("585x410+" + str(s_width) + "+" + str(s_height))
 
-# initialize excercises
+# initialize exercises
 exercises = Exercises()
 exercises.initialize()
 
