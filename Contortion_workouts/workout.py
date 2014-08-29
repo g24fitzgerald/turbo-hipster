@@ -1,4 +1,12 @@
 #Copyright (c) 2014 Gina Fitzgerald
+#New Beginnings Project
+#Contortion workout generator
+#program opens with the warning page which isntructs to maximize window, and brings next page to the front
+#2nd page (Chooser) opens to include injury buttons which generate workouts. next button brings 3rd page to front
+#3rd page (Workout) displays images for 5 minutes, displaying seconds countdown, and automatically changes to the next random workout as the timer hits zero
+#program runs until user exits-This protects against continuing the workout after sustaining a new injury-due to the personal nature of contortion, user may continue as long as necessary
+#This project allowed me to gain a deeper understanding of the structure of object oriented programmming, importing files, understanding the scope of a command, and the dangers of over-complicating code 
+
 
 
 import random
