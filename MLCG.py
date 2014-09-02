@@ -10,9 +10,11 @@ def randrange(j1, j2 = None):
     m = 277
 
     if j2 == None:
+        #define bounds
         low = 0
         high = j1
     else:
+        #define bounds
         low = j1
         high = j2
 #result
